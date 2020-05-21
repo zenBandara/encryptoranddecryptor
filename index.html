@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Encrypt and Decrypt</title>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+    <!-- Third party plugin CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" /> </head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+        <div class="container"> <a class="navbar-brand js-scroll-trigger" href="#page-top" id="udate">Encrypt and Decrypt</a> </div>
+    </nav>
+    <!-- About-->
+    <section class="page-section bg-dark" id="about">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="text-white mt-0">Encryptor</h1>
+                    <hr class="divider my-4" />
+                    <label for="enckey" style="color: aliceblue">Key:</label>
+                    <input type="number" id="enckey" class="form-control">
+                    <label for="txt" style="color: aliceblue">You text here:</label>
+                    <textarea class="form-control" id="txt" rows="3"></textarea>
+                    <br>
+                    <button type="button" class="btn btn-success" id="encbtn">Encrypt</button>
+                    <br>
+                    <label for="txtout" style="color: aliceblue">Encrypted text:</label>
+                    <textarea class="form-control" id="txtout" rows="3"></textarea>
+                    <h5 class="text-white mt-0">Scroll down to Decryptor</h5> </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services-->
+    <section class="page-section bg-light" id="about">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="text-black mt-0">Decryptor</h1>
+                    <hr class="divider my-4" />
+                    <label for="deckey" style="color: black">Key:</label>
+                    <input type="number" id="deckey" class="form-control">
+                    <label for="txtenc" style="color: black">Paste encypted text here:</label>
+                    <textarea class="form-control" id="txtenc" rows="3"></textarea>
+                    <br>
+                    <button type="button" class="btn btn-danger" id="decbtn">Decrypt</button>
+                    <br>
+                    <label for="txtdecout" style="color: black">Decrypted text:</label>
+                    <textarea class="form-control" id="txtdecout" rows="3"></textarea>
+                    <h5 class="text-black mt-0">Scroll down to Developer info.</h5> </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact-->
+    <section class="page-section" id="contact">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mt-0">About the App!</h2>
+                    <hr class="divider my-4" />
+                    <p class="text-muted mb-5">This web app made for encryption and decryption. And code up with Bootstrap4 and Javascript(Ajax and jquery).</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0"> <img src="profpic.jpg" style="width: 80px; border: 2px solid gray; border-radius: 50%">
+                    <div>Chathura Mahasen</div>
+                </div>
+                <div class="col-lg-4 mr-auto text-center"> <i class="fas fa-envelope fa-3x mb-3 text-muted"></i
+                        ><a class="d-block" href="mailto:chathuramahasen@gmail.com">chathuramahasen@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="bg-light py-5">
+            <div class="container"><div class="small text-center text-muted">Copyright © 2020 - Chathura Mahasen</div></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        //-------encryption-----------
+        $('#encbtn').click(function () {
+            $('#txt').show('show', fnc);
+        });
+
+        function fnc() {
+            var enckey = parseInt(document.getElementById('enckey').value);
+            var txta = document.getElementById("txt").value;
+            var tval = txta.toLocaleLowerCase();
+            console.log(enckey);
+            var encarray = new Array();
+            encarray = tval;
+            //console.log(encarray);
+            var reencarray = new Array();
+            var arrlength = encarray.length;
+            var charcount = 27;
+            //console.log(arrlength);
+            for (var i = 0; i < arrlength; i++) {
+                switch (encarray[i]) {
+                case 'a':
+                    reencarray[i] = (1 + enckey) % charcount;
+                    break;
+                case 'b':
+                    reencarray[i] = (2 + enckey) % charcount;
+                    break;
+                case 'c':
+                    reencarray[i] = (3 + enckey) % charcount;
+                    break;
+                case 'd':
+                    reencarray[i] = (4 + enckey) % charcount;
+                    break;
+                case 'e':
+                    reencarray[i] = (5 + enckey) % charcount;
+                    break;
+                case 'f':
+                    reencarray[i] = (6 + enckey) % charcount;
+                    break;
+                case 'g':
+                    reencarray[i] = (7 + enckey) % charcount;
+                    break;
+                case 'h':
+                    reencarray[i] = (8 + enckey) % charcount;
+                    break;
+                case 'i':
+                    reencarray[i] = (9 + enckey) % charcount;
+                    break;
+                case 'j':
+                    reencarray[i] = (10 + enckey) % charcount;
+                    break;
+                case 'k':
+                    reencarray[i] = (11 + enckey) % charcount;
+                    break;
+                case 'l':
+                    reencarray[i] = (12 + enckey) % charcount;
+                    break;
+                case 'm':
+                    reencarray[i] = (13 + enckey) % charcount;
+                    break;
+                case 'n':
+                    reencarray[i] = (14 + enckey) % charcount;
+                    break;
+                case 'o':
+                    reencarray[i] = (15 + enckey) % charcount;
+                    break;
+                case 'p':
+                    reencarray[i] = (16 + enckey) % charcount;
+                    break;
+                case 'q':
+                    reencarray[i] = (17 + enckey) % charcount;
+                    break;
+                case 'r':
+                    reencarray[i] = (18 + enckey) % charcount;
+                    break;
+                case 's':
+                    reencarray[i] = (19 + enckey) % charcount;
+                    break;
+                case 't':
+                    reencarray[i] = (20 + enckey) % charcount;
+                    break;
+                case 'u':
+                    reencarray[i] = (21 + enckey) % charcount;
+                    break;
+                case 'v':
+                    reencarray[i] = (22 + enckey) % charcount;
+                    break;
+                case 'w':
+                    reencarray[i] = (23 + enckey) % charcount;
+                    break;
+                case 'x':
+                    reencarray[i] = (24 + enckey) % charcount;
+                    break;
+                case 'y':
+                    reencarray[i] = (25 + enckey) % charcount;
+                    break;
+                case 'z':
+                    reencarray[i] = (26 + enckey) % charcount;
+                    break;
+                case ' ':
+                    reencarray[i] = (27 + enckey) % charcount;
+                    break;
+                default:
+                    // code block
+                }
+            }
+            //console.log(reencarray);
+            //var str = reencarray.toString();
+            //var result = str.split(",").join("");
+            //var blan = str.replace(',', '');
+            //console.log(reencarray[0]);
+            var reencarraylength = reencarray.length;
+            console.log(reencarray);
+            var chararray = new Array();
+            for (var i = 0; i < reencarraylength; i++) {
+                switch (reencarray[i]) {
+                case 1:
+                    chararray[i] = 'a';
+                    break;
+                case 2:
+                    chararray[i] = 'b';
+                    break;
+                case 3:
+                    chararray[i] = 'c';
+                    break;
+                case 4:
+                    chararray[i] = 'd';
+                    break;
+                case 5:
+                    chararray[i] = 'e';
+                    break;
+                case 6:
+                    chararray[i] = 'f';
+                    break;
+                case 7:
+                    chararray[i] = 'g';
+                    break;
+                case 8:
+                    chararray[i] = 'h';
+                    break;
+                case 9:
+                    chararray[i] = 'i';
+                    break;
+                case 10:
+                    chararray[i] = 'j';
+                    break;
+                case 11:
+                    chararray[i] = 'k';
+                    break;
+                case 12:
+                    chararray[i] = 'l';
+                    break;
+                case 13:
+                    chararray[i] = 'm';
+                    break;
+                case 14:
+                    chararray[i] = 'n';
+                    break;
+                case 15:
+                    chararray[i] = 'o';
+                    break;
+                case 16:
+                    chararray[i] = 'p';
+                    break;
+                case 17:
+                    chararray[i] = 'q';
+                    break;
+                case 18:
+                    chararray[i] = 'r';
+                    break;
+                case 19:
+                    chararray[i] = 's';
+                    break;
+                case 20:
+                    chararray[i] = 't';
+                    break;
+                case 21:
+                    chararray[i] = 'u';
+                    break;
+                case 22:
+                    chararray[i] = 'v';
+                    break;
+                case 23:
+                    chararray[i] = 'w';
+                    break;
+                case 24:
+                    chararray[i] = 'x';
+                    break;
+                case 25:
+                    chararray[i] = 'y';
+                    break;
+                case 26:
+                    chararray[i] = 'z';
+                    break;
+                case 27:
+                    chararray[i] = ' ';
+                    break;
+                default:
+                    // code block
+                }
+            }
+            console.log(chararray);
+            var str = chararray.toString();
+            var result = str.split(",").join("");
+            //console.log(result);
+            console.log(result.length);
+            console.log(tval.length);
+            
+            if (result.length==tval.length) {
+                document.getElementById("txtout").value = result;
+            }
+            else {
+                alert("Use any other intiger for Key!");
+                document.getElementById("txtout").value = "Use any other intiger for Key!";
+            }
+        }
+        //-------decryption----------
+        $('#decbtn').click(function () {
+            $('#txtdecout').show('show', fncdec);
+        });
+
+        function fncdec() {
+            var enckey = parseInt(document.getElementById('deckey').value);
+            var txtenc = document.getElementById("txtenc").value;
+            var txtlow = txtenc.toLocaleLowerCase();
+            //console.log(txtlow);
+            var encarray = new Array();
+            encarray = txtlow;
+            console.log(encarray);
+            var reencarray = new Array();
+            var arrlength = encarray.length;
+            var charcount = 27;
+            //console.log(arrlength);
+            for (var i = 0; i < arrlength; i++) {
+                switch (encarray[i]) {
+                case ' ':
+                    reencarray[i] = 27;
+                    break;
+                case 'z':
+                    reencarray[i] = 26;
+                    break;
+                case 'y':
+                    reencarray[i] = 25;
+                    break;
+                case 'x':
+                    reencarray[i] = 24;
+                    break;
+                case 'w':
+                    reencarray[i] = 23;
+                    break;
+                case 'v':
+                    reencarray[i] = 22;
+                    break;
+                case 'u':
+                    reencarray[i] = 21;
+                    break;
+                case 't':
+                    reencarray[i] = 20;
+                    break;
+                case 's':
+                    reencarray[i] = 19;
+                    break;
+                case 'r':
+                    reencarray[i] = 18;
+                    break;
+                case 'q':
+                    reencarray[i] = 17;
+                    break;
+                case 'p':
+                    reencarray[i] = 16;
+                    break;
+                case 'o':
+                    reencarray[i] = 15;
+                    break;
+                case 'n':
+                    reencarray[i] = 14;
+                    break;
+                case 'm':
+                    reencarray[i] = 13;
+                    break;
+                case 'l':
+                    reencarray[i] = 12;
+                    break;
+                case 'k':
+                    reencarray[i] = 11;
+                    break;
+                case 'j':
+                    reencarray[i] = 10;
+                    break;
+                case 'i':
+                    reencarray[i] = 9;
+                    break;
+                case 'h':
+                    reencarray[i] = 8;
+                    break;
+                case 'g':
+                    reencarray[i] = 7;
+                    break;
+                case 'f':
+                    reencarray[i] = 6;
+                    break;
+                case 'e':
+                    reencarray[i] = 5;
+                    break;
+                case 'd':
+                    reencarray[i] = 4;
+                    break;
+                case 'c':
+                    reencarray[i] = 3;
+                    break;
+                case 'b':
+                    reencarray[i] = 2;
+                    break;
+                case 'a':
+                    reencarray[i] = 1;
+                    break;
+                default:
+                    // code block
+                }
+                //reencarray[i] = (txta + (charcount - (txta * 2)) + enckey) % charcount;
+            }
+            //console.log(reencarray);
+            //var str = reencarray.toString();
+            //var result = str.split(",").join("");
+            //var blan = str.replace(',', '');
+            //console.log(reencarray[0]);
+            var decarray = new Array();
+            for (var i = 0; i < arrlength; i++) {
+                decarray[i] = ((reencarray[i] + (charcount - (reencarray[i] * 2)) + enckey) % charcount) + 1; //1 for adjest the eq
+                console.log(decarray);
+            }
+            var chararray = new Array();
+            for (var i = 0; i < arrlength; i++) {
+                switch (decarray[i]) {
+                case 1:
+                    chararray[i] = ' ';
+                    break;
+                case 2:
+                    chararray[i] = 'z';
+                    break;
+                case 3:
+                    chararray[i] = 'y';
+                    break;
+                case 4:
+                    chararray[i] = 'x';
+                    break;
+                case 5:
+                    chararray[i] = 'w';
+                    break;
+                case 6:
+                    chararray[i] = 'v';
+                    break;
+                case 7:
+                    chararray[i] = 'u';
+                    break;
+                case 8:
+                    chararray[i] = 't';
+                    break;
+                case 9:
+                    chararray[i] = 's';
+                    break;
+                case 10:
+                    chararray[i] = 'r';
+                    break;
+                case 11:
+                    chararray[i] = 'q';
+                    break;
+                case 12:
+                    chararray[i] = 'p';
+                    break;
+                case 13:
+                    chararray[i] = 'o';
+                    break;
+                case 14:
+                    chararray[i] = 'n';
+                    break;
+                case 15:
+                    chararray[i] = 'm';
+                    break;
+                case 16:
+                    chararray[i] = 'l';
+                    break;
+                case 17:
+                    chararray[i] = 'k';
+                    break;
+                case 18:
+                    chararray[i] = 'j';
+                    break;
+                case 19:
+                    chararray[i] = 'i';
+                    break;
+                case 20:
+                    chararray[i] = 'h';
+                    break;
+                case 21:
+                    chararray[i] = 'g';
+                    break;
+                case 22:
+                    chararray[i] = 'f';
+                    break;
+                case 23:
+                    chararray[i] = 'e';
+                    break;
+                case 24:
+                    chararray[i] = 'd';
+                    break;
+                case 25:
+                    chararray[i] = 'c';
+                    break;
+                case 26:
+                    chararray[i] = 'b';
+                    break;
+                case 27:
+                    chararray[i] = 'a';
+                    break;
+                default:
+                    // code block
+                }
+            }
+            var str = chararray.toString();
+            var result = str.split(",").join("");
+            //console.log(result);
+            document.getElementById("txtdecout").value = result;
+        }
+    </script>
+      
+
+    </body>
+</html>
